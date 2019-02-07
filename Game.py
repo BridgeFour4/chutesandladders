@@ -1,6 +1,6 @@
 #chutes amd ladders
 #nathan broadbent
-# inputting name if left blank it closes
+# inputting name if left blank it closes FIXED
 # testing comments here
 
 
@@ -144,7 +144,7 @@ class Board(object):
 
 
 class Space(object):
-    def __init__(self, move,type):
+    def __init__(self, move, type):
         self.move = move
         self.type = type
 
@@ -211,6 +211,8 @@ def main():
     for i in range(num_players):
         print("player",i+1)
         name = input("enter your name")
+        if name == "":
+            name = str(i+1)+" player"
         name = name.title()
         player = Player(name, i+1)
         players.append(player)
