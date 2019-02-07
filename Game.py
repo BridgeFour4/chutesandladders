@@ -1,5 +1,9 @@
 #chutes amd ladders
 #nathan broadbent
+# inputting name if left blank it closes
+# testing comments here
+
+
 
 # imports
 ###################################
@@ -20,7 +24,7 @@ class Player(object):
         self.name = name
         self.position = -1
         self.player_num = num
-        self.token = self.name[0].upper()
+        self.token = self.name[0].lower()
 
     def roll(self):
         die1 = random.randint(1, 6)
@@ -148,10 +152,10 @@ class Space(object):
         oldpos = player.position
         player.position = player.position+self.move
         if self.move > 0:
-            print("this space has a ladder"+player.token+"moves up", self.move, "spaces")
+            print("this space has a ladder "+player.token+" moves up", self.move, "spaces")
             input("press enter to use the ladder")
         elif self.move < 0:
-            print("this space has a chute"+player.token+"moves down", self.move, "spaces")
+            print("this space has a chute "+player.token+" moves down", self.move, "spaces")
             input("press enter to slide down the chute")
         if self.move > 0 or self.move < 0:
             if player.player_num == 1:
@@ -172,20 +176,14 @@ class Space(object):
 # functions
 ###################################
 def ask_num(message, min, max):
-    number = input(message)
-    if number.isdigit():
-        number = int(number)
-    else:
-        while number.isdigit() == False:
-            number = input(message)
-        number = int(number)
-
-    while number > max or number < min :
-        print("that is not in range")
-        number = input(message)
-        while number.isdigit() == False:
-            number = input(message)
-        number = int(number)
+    while True:
+        try:
+            number = int(input(message))
+        except:
+            print("that was not a number")
+            continue
+        if max >= number >= min:
+            break
     return number
 
 
@@ -204,7 +202,7 @@ def winner_grats():
 
 
 def main():
-    num_players = ask_num("how many players will be playing 2-4",2,4)
+    num_players = ask_num("how many players will be playing 2-4", 2, 4)
     players = []
     turn = 0
     winner = None
